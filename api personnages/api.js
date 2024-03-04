@@ -1,12 +1,22 @@
+// Function to fetch Harry Potter character data from the API based on the provided id
 function fetchHP(id) {
-  return fetch("https://hp-api.lainocs.fr/characters/" + id).then((response) =>
-    response.json()
+  // Construct the API URL with the given id
+  return (
+    fetch("https://hp-api.lainocs.fr/characters/" + id)
+      // Fetch the data and parse the JSON response
+      .then((response) => response.json())
   );
 }
 
+// Async function to display Harry Potter character information on the web page
 async function displayHP(id, elementId) {
+  // Fetch data for the specified character id
   const data = await fetchHP(id);
+
+  // Extracting the year part from the birthday data
   let date = data.birthday.slice(0, -14);
+
+  // Update the HTML content of the specified element with the fetched data
   document.getElementById(elementId).innerHTML = `
         <img src="${data.image}" alt="${data.name}"/>
         <h1>Name : ${data.name}</h1>
@@ -19,9 +29,11 @@ async function displayHP(id, elementId) {
         <h1>Role : ${data.role}</h1>
         <h1>House : ${data.house}</h1>
         <h1>Actor : ${data.actor}</h1>
-
 `;
 }
+
+// Display information for multiple Harry Potter characters on the web page
+// Each character's data is displayed in a different HTML element with a specified ID
 
 displayHP("harry-potter", "harry");
 displayHP("ron-weasley", "ron");
